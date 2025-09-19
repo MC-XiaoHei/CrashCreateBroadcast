@@ -7,6 +7,7 @@ import xyz.jpenilla.runtask.service.DownloadsAPIService.Companion.registerIfAbse
 
 plugins {
     java
+    kotlin("jvm")
     alias(libs.plugins.leavesweightUserdev)
     alias(libs.plugins.shadowJar)
     alias(libs.plugins.runPaper)
@@ -69,6 +70,7 @@ dependencies {
         compileOnly(libs.leavesApi)
         paperweight.devBundle(libs.leavesDevBundle)
     }
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks {

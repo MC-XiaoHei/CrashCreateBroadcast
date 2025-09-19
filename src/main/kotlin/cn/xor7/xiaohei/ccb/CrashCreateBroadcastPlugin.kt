@@ -1,16 +1,14 @@
-package cn.xor7.xiaohei.ccb;
+package cn.xor7.xiaohei.ccb
 
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPlugin
 
-@SuppressWarnings("unused")
-public final class CrashCreateBroadcastPlugin extends JavaPlugin {
-    @Override
-    public void onEnable() {
-        // TODO: your plugin startup logic
+@Suppress("unused")
+class CrashCreateBroadcastPlugin : JavaPlugin() {
+    override fun onEnable() {
+        println("Crash Create Broadcast Plugin Enabled")
     }
 
-    @Override
-    public void onDisable() {
+    override fun onDisable() {
         // TODO: your plugin shutdown logic
     }
 }
