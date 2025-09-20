@@ -1,14 +1,11 @@
 package cn.xor7.xiaohei.ccb
 
+import cn.xor7.xiaohei.ccb.listeners.UpdateSuppressionListener
 import org.bukkit.plugin.java.JavaPlugin
 
 @Suppress("unused")
-class CrashCreateBroadcastPlugin : JavaPlugin() {
+object CrashCreateBroadcastPlugin : JavaPlugin() {
     override fun onEnable() {
-        println("Crash Create Broadcast Plugin Enabled")
-    }
-
-    override fun onDisable() {
-        // TODO: your plugin shutdown logic
+        server.pluginManager.registerEvents(UpdateSuppressionListener, this)
     }
 }
