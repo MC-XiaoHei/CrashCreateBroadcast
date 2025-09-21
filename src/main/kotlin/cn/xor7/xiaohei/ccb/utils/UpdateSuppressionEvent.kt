@@ -11,7 +11,10 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.leavesmc.leaves.event.player.UpdateSuppressionEvent
 
-val unknown = text("<unknown>", YELLOW)
+val unknownComponent = text("<unknown>", YELLOW)
+
+val UpdateSuppressionEvent.type: ExceptionType
+    get() = ExceptionType(throwable::class.simpleName ?: "Unknown")
 
 fun UpdateSuppressionEvent.toComponent(template: String) = MiniMessage
     .miniMessage()
@@ -22,14 +25,14 @@ fun UpdateSuppressionEvent.toComponent(template: String) = MiniMessage
 
 
 private fun UpdateSuppressionEvent.toMiniMessageTagResolver(): TagResolver = buildResolver(
-    "player" to (player?.displayName() ?: unknown),
-    "world" to (position?.world?.name?.let { text(it, AQUA) } ?: unknown),
+    "player" to (player?.displayName() ?: unknownComponent),
+    "world" to (position?.world?.name?.let { text(it, AQUA) } ?: unknownComponent),
     "position" to (position?.let {
         text(
             "x=${it.blockX}, y=${it.blockY}, z=${it.blockZ}",
             AQUA,
         ).hoverEvent(showText(text(position!!.world.name)))
-    } ?: unknown),
+    } ?: unknownComponent),
     "cause" to text(throwable.javaClass.simpleName, AQUA)
         .hoverEvent(showText(text(throwable.stackTraceToString())))
         .clickEvent(ClickEvent.copyToClipboard(throwable.stackTraceToString())),
@@ -43,3 +46,6 @@ private fun buildResolver(
         Placeholder.unparsed(name, MiniMessage.miniMessage().serialize(value))
     }.toTypedArray(),
 )
+
+@JvmInline
+value class ExceptionType(val value: String)
